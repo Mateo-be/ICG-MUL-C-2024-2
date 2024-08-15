@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graficar Figuras</title>
+    <style>
+        #canvas {
+            border: 1px solid black;
+        }
+        #dibujarBtn {
+            background-color: yellow;
+            color: blue;
+            padding: 10px 20px;
+            border: 2px solid skyblue;
+            font-size: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #dibujarBtn i {
+            margin-left: 10px;
+            font-style: normal;
+        }
+        .coordenadas {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h2><strong>Trazado de Figuras</strong></h2>
+    <form onsubmit="dibujarFigura(event)">
+        <label for="figura">Escoge una figura:</label>
+        <select id="figura" name="figura" required>
+            <option value="circulo">Círculo</option>
+            <option value="cuadrado">Cuadrado</option>
+            <option value="triangulo">Triángulo</option>
+            <option value="pentagono">Pentágono</option>
+            <option value="estrella">Estrella</option>
+        </select><br><br>
+
+        <label for="colorFigura">Escoge el color de la figura:</label>
+        <input type="color" id="colorFigura" name="colorFigura" required><br><br>
+
+        <label for="colorBorde">Escoge el color del borde:</label>
+        <input type="color" id="colorBorde" name="colorBorde" required><br><br>
+
+        <label for="grosorBorde">Escoge el grosor del borde (en píxeles):</label>
+        <input type="number" id="grosorBorde" name="grosorBorde" min="1" required><br><br>
+
+        <label for="tipoCoordenadas">Tipo de coordenadas:</label>
+        <select id="tipoCoordenadas" name="tipoCoordenadas" onchange="mostrarCamposCoordenadas()" required>
+            <option value="ninguna">Ninguna</option>
+            <option value="cartesianas">Cartesiana</option>
+            <option value="polares">Polar</option>
+        </select><br><br>
+
+        <div id="coordenadasCartesianas" class="coordenadas">
+            <label for="coordX">Coordenada X del centro:</label>
+            <input type="number" id="coordX" name="coordX" required><br><br>
+
+            <label for="coordY">Coordenada Y del centro:</label>
+            <input type="number" id="coordY" name="coordY" required><br><br>
+        </div>
+
+        <div id="coordenadasPolares" class="coordenadas">
+            <label for="radio">Radio:</label>
+            <input type="number" id="radio" name="radio" min="0" required><br><br>
+
+            <label for="anguloPolar">Ángulo (en grados):</label>
+            <input type="number" id="anguloPolar" name="anguloPolar" required><br><br>
+        </div>
+
+        <label for="tamaño">Tamaño (radio o lado en píxeles):</label>
+        <input type="number" id="tamaño" name="tamaño" min="1" required><br><br>
+
+        <button type="submit" id="dibujarBtn">
+            Dibujar 
+            <i>🖉</i>
+        </button>
+    </form>
+
+    <h3>Gráfico:</h3>
+    <canvas id="canvas" width="500" height="500"></canvas>
+
+    <!-- Enlace al archivo JavaScript externo -->
+    <script src="scripts.js"></script>
+</body>
+</html>
