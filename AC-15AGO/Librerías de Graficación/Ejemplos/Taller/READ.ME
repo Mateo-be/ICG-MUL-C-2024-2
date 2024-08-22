@@ -1,0 +1,19 @@
+Explicacion de partes del codigo
+canvas: se referencia al objeto canvas en HTML usando el ID mi canvas, es como el fondo en el que se pueden dibujar las diferentes figuras.
+ctx es la abreviacion de context e indica que se obtiene el contexto del canvas, es basicamente los metodos y propiedades que hcaen que el canvas funcione de manera correcta sin errores.
+xcirculo y ycirculo: las coordenadas del circulo en el eje x & y, son las coordenadas en ambos ejes del circulo que se usan para ubicarlo en el canvas, en el codigo se usa 150 y 150.
+radioCirculo: El radio del circulo que define el tamaño del mismo, siendo la mitad del diametro, por ejemplo si se dice que el radio es 2, se le aumenta 2 pixeles en todas las direcciones haciendo el circulo
+xcuadrado & ycuadrado, las coordenadas en los dos ejes del plano cartesiano, estas estan en la esquina izquierda superior del cuadrado y lo ubican en el canvas siendo en el codigo de 300 ambas
+tamaño cuadrado, pone tamaño del cuadrado en pixeles, segun los indicados pone las mismas cantidades en vertical y en horizontal para que quede simetrico
+Dibujar:
+ctx.beginPath(), significa iniciar un nuevo camino e indica que se empieza una nueva figura de lo contrario afectaria a otras anteriores
+ctx.arc(xCirculo,ycirculo, radioCirculo, 0, Math.PI*2) 
+ - xcirculo y circulo, es el centro del circulo
+ - radiocirculo el radio del circulo
+ -para cuadrado solo se busca el centro y es con x cuadrado, y cuadrado
+ - 0 a MathPI indicaa inicio del circulo hasta el final del circulo siendo representado por el 2PI
+ - ctx.fillstyle:  Define el color de relleno del circulo
+ - ctx.fill Rellena el circulo con el color escogido en fillstyle
+ - ctx.strokeStyle: define el color del borde, puede ser el que uno quiera como pink
+ - ctx.stroke() Dibuja el borde con el color seleccionado
+ 
