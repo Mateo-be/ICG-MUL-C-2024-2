@@ -36,4 +36,43 @@ boton dibujar. envia la instruccion finalizada
 El canvas tiene un alto y ancho de 500 px
 y se relaciona con el archivo js con: <script src="scripts.js"></script>
 El html se encarga de realizar la parte externa en la que es interaccion con el usuario y personalizacion
-
+para j.s
+mostrarcampocoordenadas:
+Esta funcion maneja la visibilidad de los campos de coordenadas en funcion de las coordenas que se escogieron (polar o cartesiana)
+tipocoordenadas: obtiene el valor de coordenadas del usuario que puede ser cartesiana, polar o ninguna
+si se selecciona cartesiana o polar  hace referencia a lo que se escribio en  html de eso
+hay un if-else en donde
+-si el usuario escoje cartesianas se muestra el formulario de cartesianas con style.display = block, y se oculta la polar con style.display =none
+Sucede lo mismo con las polares pero al reves, se pone block para el polar pero se pone none para cartesiano
+Funcion convertirApolares
+Convierte las coordenadas de radio y angulo a cartesianas, para que pueda estar en el canvas
+radianes. Convierte el angulo de grados a radianes para usarlo en funciones trigonometricas
+x, y: calcula las coordenas con la formula: x= radio*cos(angulo) y con y es igual pero con sin
+return{x,y} lo devuelve calculado
+Funcion dibujar figura. Lo que hace es dibujar la figura que deseas dentro de las opciones
+event.preventdefault() previene la recarga de la pagina al reenviar el formulario
+obtencion de valores: se obtienen valores del usuario
+ctx: el contexto del canvas
+ctx.clearRect() limpia el canvas eliminando cualquier figura anterior para dibujar la figura que quieras
+ctx.save() y ctx.restore() se guarda y restaura el estado del momento del canvas, para poder hacer transformaciones como modificar el tamaño o moverla
+Auxiliares figura:
+angle: calcula el angulo entre los vertices del poligono
+ctxmoveto() y ctx.lineTo() traza lineas en los puntos calculados para hacer los lados de la figura
+DIBUJAR ESTRELLA
+angle: calcula el angulo entre los puntos de la estrella
+alternancia radios: alterna entre el radio externo e interno para hacer las puntas de las estrellas y las puntas internas o valles
+ctx.lineto() dibuja lineas conectando los puntos de las estrellas
+ctx.closepath()cierra la figura uniendo el ultimo punto con el primero
+PENTAGONO
+se usa el radio para determinar el tamaño de la figura
+se pone 5 lados y se grafica con la ayuda de la extension de lados en el codigo
+angle. Calcula el angulo entre los vertices del pentagono, se divide 2 PI/5 que eson los lados dando el angulo de cada uno
+ctx.moveTO Mueve el lapiz al primer vertice del penatagono
+ctx.line.to(): traza lineas hacia el sigiente vertice usando las coordenadas cartesianas convertidas o no, 
+ctx.closepath() cierra el pentagono conectandolo con el ultimo vertice
+TRIANGULO
+Esta tambien en la funcion de dibujar figura
+ctx.moveto (0-tamaño) mueve el lapiz al primer vertice del triangulo
+ctx.line to(-tamaño, tamaño/2) lo mueve al segundo vertice que es abajo a la izquierda del origen
+para la derecha es igual solo que se quita el - del -tamaño para ubicarlo derecha hacia abajo
+por ultimo sepone ctx.closepath() que cierra el triangulo
