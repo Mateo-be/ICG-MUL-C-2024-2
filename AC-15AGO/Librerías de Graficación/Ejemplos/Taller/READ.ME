@@ -16,4 +16,24 @@ ctx.arc(xCirculo,ycirculo, radioCirculo, 0, Math.PI*2)
  - ctx.fill Rellena el circulo con el color escogido en fillstyle
  - ctx.strokeStyle: define el color del borde, puede ser el que uno quiera como pink
  - ctx.stroke() Dibuja el borde con el color seleccionado
- 
+#canvas pone un borde negro de un pixel alrededor del canvas
+#dibujarBTN Define los estilos del boton de dibujar, siendo de fondo amarillo, borde azul y fuente de 16px
+ display: flex; align-items: center y justify-contetn center ponen el boton centrado
+dibujarbtn i. dibuja el icono del boton
+.coordenadas: oculta las coordenadas en display none
+Para seleccionar figuras
+titulo esta con h2 <strong> que le da negrita
+<form onsubmit="dibujarFigura(event)">: pone un formulario que ejecuta la función JS de dibujarFigura(event).
+Se puede elegir entre circulo, cuadrado triangulo y estrella
+Personalizacion:
+Para el color y borde se selecciona mediante un selector de color por(<input type="color">)
+El grosor del borde define la cantidad d grueso por pixeles (<input type="number>)
+se puede escoger coordenada polar o cartesiana
+cartesiana: x,y
+polar: campos por radio y angulo visible si solo se selecciona
+tamaño: escoje el tamaño de la figura en pixeles
+boton dibujar. envia la instruccion finalizada
+El canvas tiene un alto y ancho de 500 px
+y se relaciona con el archivo js con: <script src="scripts.js"></script>
+El html se encarga de realizar la parte externa en la que es interaccion con el usuario y personalizacion
+
