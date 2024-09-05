@@ -5,9 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Graficar Polígonos</title>
     <style>
+        /* Estilo para el lienzo, donde se dibujará  la figura */
         #canvas {
             border: 1px solid rgb(0, 0, 0);
         }
+        /* Estilo de el botón de dibujar */
         #dibujarBtn { 
             background-color: rgb(0, 0, 0);
             color: rgb(143, 143, 240);
@@ -23,6 +25,7 @@
             margin-left: 10px;
             font-style: italic;
         }
+        /* Estilo para los campos del formulario */
         #formulario {
             margin-bottom: 20px;
         }
@@ -35,6 +38,7 @@
     <h1><strong>Graficar Polígonos</strong></h1>
 
     <form id="formulario">
+        <!-- Aca se selecciona el tipo de coordenada -->
         <div class="campo-opciones">
             <label>Tipo de coordenadas:</label><br>
             <input type="radio" id="cartesiana" name="coordenadas" value="cartesiana" checked>
@@ -43,6 +47,7 @@
             <label for="polar">Polares</label><br><br>
         </div>
 
+        <!-- Opciones que salen si se escoge cartesiano -->
         <div id="camposCoordenadas" class="campo-opciones">
             <label for="coordX">Coordenada X del centro:</label>
             <input type="number" id="coordX" name="coordX" value="250" required><br><br>
@@ -51,16 +56,21 @@
             <input type="number" id="coordY" name="coordY" value="250" required><br><br>
         </div>
 
+        <!-- Opciones si se escoje polar -->
         <div id="camposPolares" class="campo-opciones" style="display:none;">
             <label for="angulo">Ángulo de rotación (en grados):</label>
             <input type="number" id="angulo" name="angulo" value="0" required><br><br>
         </div>
 
+        <!-- Escoger el color del poligono con codigo(la paleta de color completa) -->
         <div class="campo-opciones">
             <label for="color">Color del polígono:</label>
             <input type="color" id="color" name="color" value="#000000"><br><br>
         </div>
 
+        <!-- Selección entre el número de lados o apotema 
+         El apotema solo puede afectar el tamaño de por si solo, ya que si se quisera graficar solo con apotema, se necesita del radio pero el radio necesita del numero de lados
+         por la formula Radio= apotema/Cos(PI/numero de lados), igualemtne estan ambas opciones por si el usuario lo necesita cambiar el tamaño o el numero de lados-->
         <div class="campo-opciones">
             <label>Tipo de dimensión para especificar:</label><br>
             <input type="radio" id="tipoLados" name="tipoDimension" value="lados" checked>
@@ -69,22 +79,28 @@
             <label for="tipoApotema">Apotema</label><br><br>
         </div>
         
+        <!-- Campo para ingresar el número de lados -->
         <div id="campoLados" class="campo-opciones">
-            <label for="nlados">Número de lados del polígono:</label>
-            <input type="number" id="nlados" name="nlados" min="3" value="5" required><br><br>
+           <label id="labelLados" for="nlados">Número de lados del polígono:</label>
+           <input type="number" id="nlados" name="nlados" min="3" value="5" required><br><br>
         </div>
-        
+
+         <!-- Campo para ingresar el apotema -->
         <div id="campoApotema" class="campo-opciones" style="display:none;">
-            <label for="apotema">Apotema del polígono:</label>
-            <input type="number" id="apotema" name="apotema" value="100" required><br><br>
-        </div>
+         <label id="labelApotema" for="apotema">Apotema del polígono:</label>
+         <input type="number" id="apotema" name="apotema" value="100" required><br><br>
+       </div>
+
         
+        <!-- Botón para dibujar la figura, con emeoji de brocha -->
         <button id="dibujarBtn" type="button">Dibujar <i>🖌️</i></button>
     </form>
 
     <h3>La figura dibujada aparecerá aquí:</h3>
+    <!-- Lienzo para dibujar -->
     <canvas id="canvas" width="500" height="500"></canvas>
     
+    <!-- Enlace al archivo JavaScript con la lógica -->
     <script src="parcial1-ok.js"></script>
 </body>
 </html>
