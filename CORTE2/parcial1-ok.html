@@ -35,11 +35,6 @@
     <h1><strong>Graficar Polígonos</strong></h1>
 
     <form id="formulario">
-        <div id="NumeroDeLados">
-            <label for="nlados">Número de lados del polígono:</label>
-            <input type="number" id="nlados" name="nlados" min="3" required><br><br>
-        </div>
-
         <div class="campo-opciones">
             <label>Tipo de coordenadas:</label><br>
             <input type="radio" id="cartesiana" name="coordenadas" value="cartesiana" checked>
@@ -57,9 +52,6 @@
         </div>
 
         <div id="camposPolares" class="campo-opciones" style="display:none;">
-            <label for="tamaño">Tamaño del polígono:</label>
-            <input type="number" id="tamaño" name="tamaño" value="150" required><br><br>
-
             <label for="angulo">Ángulo de rotación (en grados):</label>
             <input type="number" id="angulo" name="angulo" value="0" required><br><br>
         </div>
@@ -69,14 +61,30 @@
             <input type="color" id="color" name="color" value="#000000"><br><br>
         </div>
 
+        <div class="campo-opciones">
+            <label>Tipo de dimensión para especificar:</label><br>
+            <input type="radio" id="tipoLados" name="tipoDimension" value="lados" checked>
+            <label for="tipoLados">Número de lados</label><br>
+            <input type="radio" id="tipoApotema" name="tipoDimension" value="apotema">
+            <label for="tipoApotema">Apotema</label><br><br>
+        </div>
+        
+        <div id="campoLados" class="campo-opciones">
+            <label for="nlados">Número de lados del polígono:</label>
+            <input type="number" id="nlados" name="nlados" min="3" value="5" required><br><br>
+        </div>
+        
+        <div id="campoApotema" class="campo-opciones" style="display:none;">
+            <label for="apotema">Apotema del polígono:</label>
+            <input type="number" id="apotema" name="apotema" value="100" required><br><br>
+        </div>
+        
         <button id="dibujarBtn" type="button">Dibujar <i>🖌️</i></button>
     </form>
 
     <h3>La figura dibujada aparecerá aquí:</h3>
     <canvas id="canvas" width="500" height="500"></canvas>
-
     
+    <script src="parcial1-ok.js"></script>
 </body>
 </html>
-<script src="parcial1-ok.js"></script>
-
