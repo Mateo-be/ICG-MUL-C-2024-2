@@ -1,3 +1,16 @@
+// Maneja la visibilidad de los campos, dependiendo del tipo de coordenadas seleccionado
+document.querySelectorAll('input[name="coordenadas"]').forEach((elem) => {
+    elem.addEventListener('change', function() {
+        if (this.value === 'cartesiana') {
+            document.getElementById('camposCoordenadas').style.display = 'block';
+            document.getElementById('camposPolares').style.display = 'none';
+        } else {
+            document.getElementById('camposCoordenadas').style.display = 'none';
+            document.getElementById('camposPolares').style.display = 'block';
+        }
+    });
+});
+
 // Maneja la visibilidad de los campos, dependiendo de la dimensión seleccionada
 document.querySelectorAll('input[name="tipoDimension"]').forEach((elem) => {
     elem.addEventListener('change', function() {
@@ -5,15 +18,14 @@ document.querySelectorAll('input[name="tipoDimension"]').forEach((elem) => {
             document.getElementById('campoLados').style.display = 'none';
             document.getElementById('campoApotema').style.display = 'block';
             document.getElementById('labelApotema').textContent = 'Ingrese el número del apotema:';
-            document.getElementById('labelLados').textContent = 'Número de lados del polígono:';
         } else {
             document.getElementById('campoLados').style.display = 'block';
             document.getElementById('campoApotema').style.display = 'none';
             document.getElementById('labelLados').textContent = 'Ingrese el número de lados:';
-            document.getElementById('labelApotema').textContent = 'Apotema del polígono:';
         }
     });
 });
+
 
 
 // Clase para gestionar coordenadas cartesianas
