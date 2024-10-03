@@ -3,13 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vectorizado</title>
-    <script src="vectorizado.js" defer></script>
+    <title>Vectorizado de Figuras Poligonales</title>
+    <style>
+        /* El estilo para el canvas (SVG) vector */
+        #canvas {
+            border: 1px solid black; /* Borde del canvas */
+            width: 500px; /* Ancho */
+            height: 500px; /* Alto */
+        }
+        /* Estilo para el botón */
+        button {
+            margin-top: 10px; /* Espaciado superior para el botón de diez pixeles*/
+        }
+        /* Estilo para el resultado */
+        #resultado {
+            margin-top: 10px; /* Espaciado superior para el resultado 10 pixeles */
+            font-weight: bold; /* Texto en negrita */
+        }
+    </style>
 </head>
 <body>
-    <h1>Figura Poligonal - Vectorizado</h1>
-    <button id="generarBtn">Generar nueva figura</button>
-    <svg id="canvas" width="500" height="500" style="border:1px solid black;"></svg>
-    <div id="resultado"></div>
+    <h1>Dibujo de Figuras Poligonales Vectorizadas</h1>
+    <svg id="canvas"></svg> <!-- Elemento SVG que servirá como canvas para dibujar -->
+    <button id="generarBtn">Generar Nueva Figura</button> <!-- Botón que se usa para generar otra figura -->
+    <div id="resultado"></div> <!-- Elemento para mostrar el resultado (si la figura es concava o convexa y el número de puntos) -->
+
+    <script src="vectorizado.js"></script> <!-- Inclusión del archivo JavaScript -->
 </body>
 </html>
