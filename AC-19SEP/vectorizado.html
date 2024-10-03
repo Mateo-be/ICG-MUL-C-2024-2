@@ -5,13 +5,92 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Primitivas de Graficación</title>
     <style>
-        canvas {
+        svg {
             border: 1px solid black;
         }
     </style>
 </head>
 <body>
-    <canvas id="canvas" width="500" height="500"></canvas>
-    <script src="vectorizado.js"></script>
+    <svg id="svg" width="500" height="500"></svg>
+    <script>
+        // Clase base para formas
+        class Forma {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+
+            dibujar() {
+                throw new Error("Método 'dibujar()' debe ser implementado");
+            }
+        }
+
+        // Clase para líneas
+        class Linea extends Forma {
+            constructor(x1, y1, x2, y2) {
+                super(x1, y1);
+                this.x2 = x2;
+                this.y2 = y2;
+            }
+
+            dibujar() {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', this.x);
+                line.setAttribute('y1', this.y);
+                line.setAttribute('x2', this.x2);
+                line.setAttribute('y2', this.y2);
+                line.setAttribute('stroke', 'black');
+                document.getElementById('svg').appendChild(line);
+            }
+        }
+
+        // Clase para circunferencias
+        class Circunferencia extends Forma {
+            constructor(cx, cy, r) {
+                super(cx, cy);
+                this.r = r;
+            }
+
+            dibujar() {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', this.x);
+                circle.setAttribute('cy', this.y);
+                circle.setAttribute('r', this.r);
+                circle.setAttribute('stroke', 'black');
+                circle.setAttribute('fill', 'none');
+                document.getElementById('svg').appendChild(circle);
+            }
+        }
+
+        // Clase para elipses
+        class Elipse extends Forma {
+            constructor(cx, cy, a, b) {
+                super(cx, cy);
+                this.a = a;
+                this.b = b;
+            }
+
+            dibujar() {
+                const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                ellipse.setAttribute('cx', this.x);
+                ellipse.setAttribute('cy', this.y);
+                ellipse.setAttribute('rx', this.a);
+                ellipse.setAttribute('ry', this.b);
+                ellipse.setAttribute('stroke', 'black');
+                ellipse.setAttribute('fill', 'none');
+                document.getElementById('svg').appendChild(ellipse);
+            }
+        }
+
+        // Crear y dibujar las formas
+        const linea = new Linea(50, 50, 200, 200);
+        linea.dibujar();
+
+        const circunferencia = new Circunferencia(300, 100, 50);
+        circunferencia.dibujar();
+
+        const elipse = new Elipse(400, 300, 80, 50);
+        elipse.dibujar();
+    </script>
 </body>
 </html>
