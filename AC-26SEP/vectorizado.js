@@ -12,13 +12,13 @@ class Forma {
     }
 
     // Métodos getter para acceder a las propiedades privadas
-        get x() {
-            return this.#x;
-         }
+    get x() {
+        return this.#x;
+    }
 
-        get y() {
-          return this.#y;
-        }
+    get y() {
+        return this.#y;
+    }
 
     dibujar() {
         throw new Error("Método 'dibujar()' debe ser implementado");
@@ -33,6 +33,37 @@ class Punto {
     }
 }
 
+// Implementación del algoritmo de Bresenham para líneas
+function dibujarLineaBresenham(p1, p2) {
+    const dx = p2.x - p1.x;
+    const dy = p2.y - p1.y;
+    const absDx = Math.abs(dx);
+    const absDy = Math.abs(dy);
+    const sx = dx >= 0 ? 1 : -1; // Dirección en x
+    const sy = dy >= 0 ? 1 : -1; // Dirección en y
+
+    let err = absDx - absDy; // Error inicial
+
+    while (true) {
+        ctx.fillRect(p1.x, p1.y, 1, 1); // Dibuja el píxel
+
+        // Si hemos alcanzado el punto final, salimos
+        if (p1.x === p2.x && p1.y === p2.y) break;
+
+        const err2 = err * 2; // Duplica el error
+
+        // Ajuste de error y coordenadas
+        if (err2 > -absDy) {
+            err -= absDy; // Ajusta el error
+            p1.x += sx;   // Mueve en x
+        }
+        if (err2 < absDx) {
+            err += absDx; // Ajusta el error
+            p1.y += sy;   // Mueve en y
+        }
+    }
+}
+
 // Clase para líneas
 class Linea extends Forma {
     #p2; // Propiedad privada
@@ -43,10 +74,7 @@ class Linea extends Forma {
     }
 
     dibujar() {
-        ctx.beginPath();
-        ctx.moveTo(this.x, this.y); // Acceso a través del getter
-        ctx.lineTo(this.#p2.x, this.#p2.y);
-        ctx.stroke(); // Dibuja la línea
+        dibujarLineaBresenham(new Punto(this.x, this.y), this.#p2); // Usar el algoritmo de Bresenham
     }
 }
 
@@ -55,7 +83,7 @@ class Circunferencia extends Forma {
     #r; // Propiedad privada
 
     constructor(c, r) {
-        super(c.x, c.y); //usa las coordenadas de punto
+        super(c.x, c.y); // Usa las coordenadas de punto
         this.#r = r;
     }
 
@@ -85,20 +113,21 @@ class Elipse extends Forma {
 }
 
 // Crear y dibujar las formas
-ctx.strokeStyle = 'blue'; // Color del trazo
+ctx.fillStyle = 'black'; // Color del trazo para la línea
+ctx.strokeStyle = 'blue'; // Color del trazo para circunferencia y elipse
 
-//puntos para linea
+// Puntos para la línea
 const p1 = new Punto(50, 50);
 const p2 = new Punto(200, 200);
 const linea = new Linea(p1, p2);
 linea.dibujar();
 
-//puntos para circuferencia
+// Puntos para la circunferencia
 const pc = new Punto(300, 100);
-const circuferencia = new Circunferencia(pc,50)
+const circunferencia = new Circunferencia(pc, 50);
 circunferencia.dibujar();
 
-//puntos elipse
+// Puntos para la elipse
 const pe = new Punto(400, 300);
-const elipse = new Elipse (pe, 80, 50);
+const elipse = new Elipse(pe, 80, 50);
 elipse.dibujar();

@@ -5,14 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Primitivas de Graficación</title>
     <style>
-        svg {
-            border: 1px solid black;
+        canvas {
+            border: 1px solid black; /* Añade un borde al canvas */
         }
     </style>
 </head>
 <body>
-    <svg id="svg" width="500" height="500"></svg>
+    <canvas id="canvas" width="500" height="500"></canvas>
     <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+
         // Clase base para formas
         class Forma {
             constructor(x, y) {
@@ -25,71 +28,111 @@
             }
         }
 
+        // Clase para puntos
+        class Punto {
+            constructor(x, y) {
+                this.x = x;
+                this.y = y;
+            }
+        }
+
+        // Implementación del algoritmo de Bresenham para líneas
+        function dibujarLineaBresenham(p1, p2) {
+            const dx = p2.x - p1.x;
+            const dy = p2.y - p1.y;
+            const absDx = Math.abs(dx);
+            const absDy = Math.abs(dy);
+            const sx = dx >= 0 ? 1 : -1; // Dirección en x
+            const sy = dy >= 0 ? 1 : -1; // Dirección en y
+
+            let err = absDx - absDy; // Error inicial
+
+            while (true) {
+                ctx.fillRect(p1.x, p1.y, 1, 1); // Dibuja el píxel
+
+                // Si hemos alcanzado el punto final, salimos
+                if (p1.x === p2.x && p1.y === p2.y) break;
+
+                const err2 = err * 2; // Duplica el error
+
+                // Ajuste de error y coordenadas
+                if (err2 > -absDy) {
+                    err -= absDy; // Ajusta el error
+                    p1.x += sx;   // Mueve en x
+                }
+                if (err2 < absDx) {
+                    err += absDx; // Ajusta el error
+                    p1.y += sy;   // Mueve en y
+                }
+            }
+        }
+
         // Clase para líneas
         class Linea extends Forma {
-            constructor(x1, y1, x2, y2) {
-                super(x1, y1);
-                this.x2 = x2;
-                this.y2 = y2;
+            #p2; // Propiedad privada
+
+            constructor(p1, p2) {
+                super(p1.x, p1.y);
+                this.#p2 = p2;
             }
 
             dibujar() {
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', this.x);
-                line.setAttribute('y1', this.y);
-                line.setAttribute('x2', this.x2);
-                line.setAttribute('y2', this.y2);
-                line.setAttribute('stroke', 'black');
-                document.getElementById('svg').appendChild(line);
+                dibujarLineaBresenham(new Punto(this.x, this.y), this.#p2); // Usar el algoritmo de Bresenham
             }
         }
 
         // Clase para circunferencias
         class Circunferencia extends Forma {
-            constructor(cx, cy, r) {
-                super(cx, cy);
-                this.r = r;
+            #r; // Propiedad privada
+
+            constructor(c, r) {
+                super(c.x, c.y); // Usa las coordenadas de punto
+                this.#r = r;
             }
 
             dibujar() {
-                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-                circle.setAttribute('cx', this.x);
-                circle.setAttribute('cy', this.y);
-                circle.setAttribute('r', this.r);
-                circle.setAttribute('stroke', 'black');
-                circle.setAttribute('fill', 'none');
-                document.getElementById('svg').appendChild(circle);
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.#r, 0, Math.PI * 2); // Acceso a través del getter
+                ctx.stroke(); // Dibuja la circunferencia
             }
         }
 
         // Clase para elipses
         class Elipse extends Forma {
-            constructor(cx, cy, a, b) {
-                super(cx, cy);
-                this.a = a;
-                this.b = b;
+            #a; // Propiedad privada
+            #b; // Propiedad privada
+
+            constructor(c, a, b) {
+                super(c.x, c.y);
+                this.#a = a;
+                this.#b = b;
             }
 
             dibujar() {
-                const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
-                ellipse.setAttribute('cx', this.x);
-                ellipse.setAttribute('cy', this.y);
-                ellipse.setAttribute('rx', this.a);
-                ellipse.setAttribute('ry', this.b);
-                ellipse.setAttribute('stroke', 'black');
-                ellipse.setAttribute('fill', 'none');
-                document.getElementById('svg').appendChild(ellipse);
+                ctx.beginPath();
+                ctx.ellipse(this.x, this.y, this.#a, this.#b, 0, 0, Math.PI * 2); // Acceso a través del getter
+                ctx.stroke(); // Dibuja la elipse
             }
         }
 
         // Crear y dibujar las formas
-        const linea = new Linea(50, 50, 200, 200);
+        ctx.fillStyle = 'black'; // Color del trazo para la línea
+        ctx.strokeStyle = 'blue'; // Color del trazo para circunferencia y elipse
+
+        // Puntos para la línea
+        const p1 = new Punto(50, 50);
+        const p2 = new Punto(200, 200);
+        const linea = new Linea(p1, p2);
         linea.dibujar();
 
-        const circunferencia = new Circunferencia(300, 100, 50);
+        // Puntos para la circunferencia
+        const pc = new Punto(300, 100);
+        const circunferencia = new Circunferencia(pc, 50);
         circunferencia.dibujar();
 
-        const elipse = new Elipse(400, 300, 80, 50);
+        // Puntos para la elipse
+        const pe = new Punto(400, 300);
+        const elipse = new Elipse(pe, 80, 50);
         elipse.dibujar();
     </script>
 </body>
